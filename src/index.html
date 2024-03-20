@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Test form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <form
+      name="contact"
+      method="POST"
+      enctype="multipart/form-data"
+      data-netlify="true"
+    >
+      <p>
+        <label>Your Name<input type="text" name="name" /></label>
+      </p>
+      <p>
+        <label>Your message <textarea name="message" /></label>
+      </p>
+      <p>
+        <label>
+          <span>Add image</span>
+          <input name="file" type="file" />
+        </label>
+      </p>
+      <p>
+        <button type="submit">Send</button>
+      </p>
+    </form>
+  </body>
+</html>

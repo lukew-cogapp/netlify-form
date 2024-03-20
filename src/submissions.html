@@ -3,25 +3,74 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Submissions</title>
+    <title>Gallery</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Ensure content fits within the card's max height */
+      .card-content {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    </style>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        fetch("/.netlify/functions/get-form-submissions")
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
+      document.addEventListener("DOMContentLoaded", async function () {
+        try {
+          const response = await fetch(
+            "/.netlify/functions/get-form-submissions"
+          );
+          if (!response.ok) {
+            console.log(response);
+            throw new Error(
+              `Network response was not ok, status: ${response.status}`
+            );
+          }
+          const data = await response.json();
+          // Container for cards to allow flex wrapping
+          const container = document.createElement("div");
+          container.className = "flex flex-wrap justify-center";
+          document.body.appendChild(container);
+
+          // Assume 'data' is an array of items
+          data.forEach((item) => {
+            const card = document.createElement("div");
+            card.className =
+              "max-w-xs max-h-48 rounded overflow-hidden shadow-lg m-2 bg-white flex flex-col";
+
+            // Image (with conditional rendering based on URL existence)
+            if (item.data.file && item.data.file.url) {
+              const img = document.createElement("img");
+              img.className = "w-full object-cover";
+              img.style.maxHeight = "50%"; // Limit image height to 50% of the card
+              img.src = item.data.file.url;
+              img.alt = "Submission Image";
+              card.appendChild(img);
             }
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data); // Log the form submissions
-            // Here, you can dynamically generate HTML to display the form submissions
-            // For example, iterate over 'data' and append each submission to a list
-          })
-          .catch((error) => console.error("Error:", error));
+
+            // Name
+            const name = document.createElement("div");
+            name.className = "font-bold text-xl mb-2 p-2 card-content";
+            name.textContent = item.data.name;
+            card.appendChild(name);
+
+            // Message
+            const message = document.createElement("p");
+            message.className = "text-gray-700 text-base p-2 card-content";
+            message.textContent = item.data.message;
+            card.appendChild(message);
+
+            // Append the card to the container
+            container.appendChild(card);
+          });
+        } catch (error) {
+          console.error("Error:", error);
+        }
       });
     </script>
   </head>
-  <body></body>
+  <body
+    class="bg-gray-200 flex justify-center items-center min-h-screen"
+  ></body>
 </html>

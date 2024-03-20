@@ -1,8 +1,7 @@
-// functions/getFormSubmissions.js
-// const fetch = require("node-fetch");
+// functions/get-form-submissions.js
 
-exports.handler = async (event) => {
-  const API_ENDPOINT = `https://api.netlify.com/api/v1/forms/YOUR_FORM_ID/submissions?access_token=${process.env.YOUR_ACCESS_TOKEN}`;
+export default async (req, context) => {
+  const API_ENDPOINT = `https://api.netlify.com/api/v1/forms/65faa9ef27f0350008a03f5a/submissions?access_token=${process.env.YOUR_ACCESS_TOKEN}`;
 
   try {
     const response = await fetch(API_ENDPOINT, {
@@ -19,10 +18,7 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data),
-    };
+    return new Response(JSON.stringify(data));
   } catch (error) {
     console.error("Fetch error:", error);
     return { statusCode: 500, body: JSON.stringify({ msg: error.message }) };

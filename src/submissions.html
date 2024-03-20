@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Submissions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetch("/.netlify/functions/getFormSubmissions")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data); // Log the form submissions
+            // Here, you can dynamically generate HTML to display the form submissions
+            // For example, iterate over 'data' and append each submission to a list
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

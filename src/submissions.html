@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        fetch("/.netlify/functions/getFormSubmissions")
+        fetch("/.netlify/functions/get-form-submissions")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");

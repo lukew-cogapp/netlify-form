@@ -1,14 +1,17 @@
+[functions]
+  node_bundler = "esbuild" 
+
 [build]
   publish = "src"
 
-[[redirects]]
-  from = "/submissions"
-  to = "/submissions.html"
-  status = 200
+# [[redirects]]
+#   from = "/submissions"
+#   to = "/submissions.html"
+#   status = 200
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  # Add the following line to ensure that direct paths (like your submissions page) are still accessible:
-  force = false
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
+#   # Add the following line to ensure that direct paths (like your submissions page) are still accessible:
+#   force = false
